@@ -140,7 +140,7 @@
   </header>
 
   <form id="intake" novalidate>
-    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <div class="q">
       <fieldset>
@@ -294,8 +294,9 @@
 </div>
 
 <script>
-  // Where answers are sent. Change this one line to change the email.
-  var SEND_TO = "akiunframed@gmail.com";
+  // Web3Forms access key: answers are emailed to the address this key was created with.
+  // This key is safe to be public; it can only send answers to you.
+  var ACCESS_KEY = "WEB3FORMS_KEY_HERE";
 
   var form = document.getElementById("intake");
   var btn = document.getElementById("send");
@@ -317,7 +318,7 @@
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (form._honey.value) return;
+    if (form.botcheck.checked) return;
 
     var name = form.Name.value.trim();
     var phone = form.Phone.value.trim();
@@ -329,33 +330,40 @@
     // Collect answers; join ticked boxes into one line each.
     var data = {};
     new FormData(form).forEach(function (value, key) {
-      if (key === "_honey") return;
+      if (key === "botcheck") return;
       value = String(value).trim();
       if (!value) return;
       data[key] = data[key] ? data[key] + ", " + value : value;
     });
-    data._subject = "New website client: " + name;
-    data._template = "table";
-    if (email) data._autoresponse = "Thank you, " + name + "! I have your answers about your website. I will be in touch with you soon.";
+    data.access_key = ACCESS_KEY;
+    data.subject = "New website client: " + name;
+    data.from_name = "Website intake form";
 
     btn.disabled = true;
     btn.textContent = "Sending...";
     msg.className = "msg";
     msg.textContent = "";
 
-    fetch("https://formsubmit.co/ajax/" + SEND_TO, {
+    // Give up after 20 seconds so the button never gets stuck on "Sending...".
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+
+    fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      signal: ctrl ? ctrl.signal : undefined
     })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (res) {
-        if (!res.ok || String(res.j.success) === "false") throw new Error(res.j.message || "failed");
+        clearTimeout(timer);
+        if (!res.ok || res.j.success !== true) throw new Error(res.j.message || "failed");
         form.style.display = "none";
         document.getElementById("thanks").style.display = "block";
         window.scrollTo({ top: 0, behavior: "smooth" });
       })
       .catch(function (err) {
+        clearTimeout(timer);
         console.error("Form did not send:", err);
         btn.disabled = false;
         btn.textContent = "Send my answers";
