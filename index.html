@@ -135,14 +135,13 @@
 <div class="wrap">
   <header>
     <h1>A few questions about your website</h1>
-    <p>Thank you for choosing me to build your website. Please answer these 11 short questions.</p>
+    <p>Thank you for choosing me to build your website. Please answer these 13 short questions.</p>
     <p>Short answers are fine. If you are not sure, just write <strong>"Not sure"</strong> and we will talk about it.</p>
   </header>
 
   <form id="intake" novalidate>
     <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    <!-- 1 -->
     <div class="q">
       <fieldset>
         <legend><span class="num">1</span>Your name, phone number and email</legend>
@@ -158,11 +157,14 @@
           <label for="email">Email</label>
           <input type="email" id="email" name="email" autocomplete="email">
         </div>
+        <div class="field">
+          <label for="reach">Best way and time to reach you</label>
+          <input type="text" id="reach" name="Best way and time to reach" placeholder="For example: phone, mornings">
+        </div>
         <p class="hint" style="margin-top:.7rem">Please give me at least a phone number or an email so I can reach you.</p>
       </fieldset>
     </div>
 
-    <!-- 2 -->
     <div class="q">
       <fieldset>
         <legend><span class="num">2</span>Who is this website for?</legend>
@@ -177,20 +179,17 @@
       </fieldset>
     </div>
 
-    <!-- 3 -->
     <div class="q">
       <label class="title" for="q3"><span class="num">3</span>In a few simple words, what do you do?</label>
       <textarea id="q3" name="What they do"></textarea>
     </div>
 
-    <!-- 4 -->
     <div class="q">
       <label class="title" for="q4"><span class="num">4</span>Who do you want to visit your website?</label>
       <p class="hint">For example: customers, clients, employers, people in your town.</p>
       <input type="text" id="q4" name="Who should visit">
     </div>
 
-    <!-- 5 -->
     <div class="q">
       <fieldset>
         <legend><span class="num">5</span>What should people do after they visit your website?</legend>
@@ -207,7 +206,6 @@
       </fieldset>
     </div>
 
-    <!-- 6 -->
     <div class="q">
       <fieldset>
         <legend><span class="num">6</span>Which pages would you like?</legend>
@@ -221,7 +219,6 @@
       </fieldset>
     </div>
 
-    <!-- 7 -->
     <div class="q">
       <fieldset>
         <legend><span class="num">7</span>What do you already have?</legend>
@@ -241,23 +238,26 @@
       </fieldset>
     </div>
 
-    <!-- 8 -->
     <div class="q">
-      <label class="title" for="q8"><span class="num">8</span>Have you seen any websites you like?</label>
+      <label class="title" for="qsocial"><span class="num">8</span>Are you on Facebook, Instagram or Google Maps?</label>
+      <p class="hint">If yes, please write the name you use there. If not, just leave it empty.</p>
+      <textarea id="qsocial" name="Facebook, Instagram, Google listing"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="title" for="q8"><span class="num">9</span>Have you seen any websites you like?</label>
       <p class="hint">Only if you have any. Please write the name or web address, and what you like about it.</p>
       <textarea id="q8" name="Websites they like"></textarea>
     </div>
 
-    <!-- 9 -->
     <div class="q">
-      <label class="title" for="q9"><span class="num">9</span>When do you need the website?</label>
+      <label class="title" for="q9"><span class="num">10</span>When do you need the website?</label>
       <input type="text" id="q9" name="When needed" placeholder="For example: in 1 month">
     </div>
 
-    <!-- 10 -->
     <div class="q">
       <fieldset>
-        <legend><span class="num">10</span>About how much would you like to spend?</legend>
+        <legend><span class="num">11</span>About how much would you like to spend?</legend>
         <p class="hint">Pick one.</p>
         <label class="choice"><input type="radio" name="Budget" value="$500 to $1,000"><span>$500 to $1,000</span></label>
         <label class="choice"><input type="radio" name="Budget" value="$1,000 to $2,000"><span>$1,000 to $2,000</span></label>
@@ -266,9 +266,18 @@
       </fieldset>
     </div>
 
-    <!-- 11 -->
     <div class="q">
-      <label class="title" for="q11"><span class="num">11</span>Is there anything else you would like me to know?</label>
+      <fieldset>
+        <legend><span class="num">12</span>After the website is ready, who will make small changes?</legend>
+        <p class="hint">For example: new photos, new prices, new opening hours. Pick one.</p>
+        <label class="choice"><input type="radio" name="Who makes changes later" value="I will do it myself"><span>I will do it myself</span></label>
+        <label class="choice"><input type="radio" name="Who makes changes later" value="WANTS ME TO DO IT"><span>I would like you to do it for me</span></label>
+        <label class="choice"><input type="radio" name="Who makes changes later" value="Not sure"><span>I am not sure</span></label>
+      </fieldset>
+    </div>
+
+    <div class="q">
+      <label class="title" for="q11"><span class="num">13</span>Is there anything else you would like me to know?</label>
       <textarea id="q11" name="Anything else"></textarea>
     </div>
 
@@ -327,6 +336,7 @@
     });
     data._subject = "New website client: " + name;
     data._template = "table";
+    if (email) data._autoresponse = "Thank you, " + name + "! I have your answers about your website. I will be in touch with you soon.";
 
     btn.disabled = true;
     btn.textContent = "Sending...";
@@ -345,7 +355,8 @@
         document.getElementById("thanks").style.display = "block";
         window.scrollTo({ top: 0, behavior: "smooth" });
       })
-      .catch(function () {
+      .catch(function (err) {
+        console.error("Form did not send:", err);
         btn.disabled = false;
         btn.textContent = "Send my answers";
         showError("Sorry, your answers did not send. Please check your internet and press the button again. If it still does not work, please call me.");
