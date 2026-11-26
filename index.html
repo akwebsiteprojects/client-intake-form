@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Website Questions</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --ink: #1f2328;
+    --muted: #4a525c;
+    --paper: #fbf8f3;
+    --card: #ffffff;
+    --line: #d9d2c5;
+    --accent: #1d5c4d;
+    --accent-dark: #143f35;
+    --focus: #f2b134;
+    --error: #a3261f;
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 20px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 2rem 1.1rem 4rem; }
+  header h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .6rem; }
+  header p { font-size: 1.05rem; color: var(--muted); margin: 0 0 .5rem; }
+  .q {
+    background: var(--card);
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    padding: 1.3rem 1.3rem 1.4rem;
+    margin: 1.4rem 0;
+  }
+  .q legend, .q > label.title {
+    display: block;
+    font-weight: bold;
+    font-size: 1.15rem;
+    padding: 0;
+    margin-bottom: .3rem;
+  }
+  .num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    width: 1.8rem; height: 1.8rem;
+    text-align: center;
+    line-height: 1.8rem;
+    font-family: Arial, sans-serif;
+    font-size: .9rem;
+    margin-right: .45rem;
+    vertical-align: 2px;
+  }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .hint { color: var(--muted); font-size: .95rem; margin: 0 0 .7rem; }
+  input[type=text], input[type=email], input[type=tel], textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 1.05rem;
+    color: var(--ink);
+    padding: .7rem .8rem;
+    border: 2px solid #8f8778;
+    border-radius: 10px;
+    background: #fff;
+    margin-top: .3rem;
+  }
+  textarea { min-height: 6.5rem; resize: vertical; }
+  .field { margin-top: .8rem; }
+  .field label { font-size: 1rem; }
+  .choice {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .65rem .7rem;
+    margin: .35rem 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.05rem;
+  }
+  .choice:hover { background: #f1ede5; }
+  .choice input[type=checkbox], .choice input[type=radio] {
+    width: 1.6rem; height: 1.6rem;
+    margin: .1rem 0 0;
+    flex: none;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .choice .extra { display: block; width: 100%; }
+  .choice .extra input { margin-top: .4rem; }
+  :focus-visible { outline: 4px solid var(--focus); outline-offset: 2px; }
+  .req { color: var(--error); font-size: .9rem; font-weight: normal; }
+  button {
+    display: block;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 14px;
+    padding: 1.1rem;
+    margin-top: 2rem;
+    cursor: pointer;
+  }
+  button:hover { background: var(--accent-dark); }
+  button[disabled] { opacity: .6; cursor: wait; }
+  .msg { font-size: 1.05rem; margin-top: 1rem; }
+  .msg.error { color: var(--error); font-weight: bold; }
+  .thanks {
+    display: none;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    padding: 2rem 1.4rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .thanks h2 { font-size: 1.8rem; margin: 0 0 .6rem; color: var(--accent); }
+  .hp { position: absolute; left: -9999px; }
+  footer { text-align: center; color: var(--muted); font-size: .95rem; margin-top: 2.5rem; }
+  @media (max-width: 520px) {
+    html { font-size: 19px; }
+    header h1 { font-size: 1.7rem; }
+    .q { padding: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>A few questions about your website</h1>
+    <p>Thank you for choosing me to build your website. Please answer these 10 short questions.</p>
+    <p>Short answers are fine. If you are not sure, just write <strong>"Not sure"</strong> and we will talk about it.</p>
+  </header>
+
+  <form id="intake" novalidate>
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <!-- 1 -->
+    <div class="q">
+      <fieldset>
+        <legend><span class="num">1</span>Your name, phone number and email</legend>
+        <div class="field">
+          <label for="name">Your name <span class="req">(needed)</span></label>
+          <input type="text" id="name" name="Name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="Phone" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email">
+        </div>
+        <p class="hint" style="margin-top:.7rem">Please give me at least a phone number or an email so I can reach you.</p>
+      </fieldset>
+    </div>
+
+    <!-- 2 -->
+    <div class="q">
+      <fieldset>
+        <legend><span class="num">2</span>Who is this website for?</legend>
+        <label class="choice"><input type="radio" name="Website is for" value="My business">
+          <span class="extra">My business
+            <input type="text" name="Business name" placeholder="Business name" aria-label="Business name">
+          </span></label>
+        <label class="choice"><input type="radio" name="Website is for" value="Me personally">
+          <span>Me personally (my name, my work, my story)</span></label>
+        <label class="choice"><input type="radio" name="Website is for" value="Both">
+          <span>Both</span></label>
+      </fieldset>
+    </div>
+
+    <!-- 3 -->
+    <div class="q">
+      <label class="title" for="q3"><span class="num">3</span>In a few simple words, what do you do?</label>
+      <textarea id="q3" name="What they do"></textarea>
+    </div>
+
+    <!-- 4 -->
+    <div class="q">
+      <label class="title" for="q4"><span class="num">4</span>Who do you want to visit your website?</label>
+      <p class="hint">For example: customers, clients, employers, people in your town.</p>
+      <input type="text" id="q4" name="Who should visit">
+    </div>
+
+    <!-- 5 -->
+    <div class="q">
+      <fieldset>
+        <legend><span class="num">5</span>What should people do after they visit your website?</legend>
+        <p class="hint">Tick all that fit.</p>
+        <label class="choice"><input type="checkbox" name="Visitors should" value="Call me"><span>Call me</span></label>
+        <label class="choice"><input type="checkbox" name="Visitors should" value="Send me a message or email"><span>Send me a message or email</span></label>
+        <label class="choice"><input type="checkbox" name="Visitors should" value="Book a time with me"><span>Book a time with me</span></label>
+        <label class="choice"><input type="checkbox" name="Visitors should" value="Buy something"><span>Buy something</span></label>
+        <label class="choice"><input type="checkbox" name="Visitors should" value="Get to know me and my work"><span>Get to know me and my work</span></label>
+        <label class="choice"><input type="checkbox" name="Visitors should" value="Other">
+          <span class="extra">Other
+            <input type="text" name="Visitors should (other)" placeholder="Please write here" aria-label="Other">
+          </span></label>
+      </fieldset>
+    </div>
+
+    <!-- 6 -->
+    <div class="q">
+      <fieldset>
+        <legend><span class="num">6</span>Which pages would you like?</legend>
+        <p class="hint">Tick all that fit.</p>
+        <label class="choice"><input type="checkbox" name="Pages" value="Home"><span>Home</span></label>
+        <label class="choice"><input type="checkbox" name="Pages" value="About me or about us"><span>About me or about us</span></label>
+        <label class="choice"><input type="checkbox" name="Pages" value="What I offer (services or products)"><span>What I offer (services or products)</span></label>
+        <label class="choice"><input type="checkbox" name="Pages" value="Photos"><span>Photos</span></label>
+        <label class="choice"><input type="checkbox" name="Pages" value="Contact"><span>Contact</span></label>
+        <label class="choice"><input type="checkbox" name="Pages" value="Not sure, please suggest"><span>I am not sure, please suggest</span></label>
+      </fieldset>
+    </div>
+
+    <!-- 7 -->
+    <div class="q">
+      <fieldset>
+        <legend><span class="num">7</span>What do you already have?</legend>
+        <p class="hint">Tick all that fit.</p>
+        <label class="choice"><input type="checkbox" name="Already has" value="A logo"><span>A logo</span></label>
+        <label class="choice"><input type="checkbox" name="Already has" value="Photos of me or my work"><span>Photos of me or my work</span></label>
+        <label class="choice"><input type="checkbox" name="Already has" value="Colours I like">
+          <span class="extra">Colours I like
+            <input type="text" name="Colours" placeholder="For example: blue and white" aria-label="Colours I like">
+          </span></label>
+        <label class="choice"><input type="checkbox" name="Already has" value="A web address (domain name)">
+          <span class="extra">A web address (domain name), like www.yourname.com
+            <input type="text" name="Their domain" placeholder="Mine is: www." aria-label="Your web address">
+          </span></label>
+        <label class="choice"><input type="checkbox" name="Already has" value="NEEDS HELP BUYING A WEB ADDRESS"><span>I need help buying a web address</span></label>
+        <label class="choice"><input type="checkbox" name="Already has" value="Nothing yet"><span>Nothing yet</span></label>
+      </fieldset>
+    </div>
+
+    <!-- 8 -->
+    <div class="q">
+      <label class="title" for="q8"><span class="num">8</span>Have you seen any websites you like?</label>
+      <p class="hint">Only if you have any. Please write the name or web address, and what you like about it.</p>
+      <textarea id="q8" name="Websites they like"></textarea>
+    </div>
+
+    <!-- 9 -->
+    <div class="q">
+      <label class="title" for="q9"><span class="num">9</span>When do you need the website, and about how much would you like to spend?</label>
+      <textarea id="q9" name="Timing and budget"></textarea>
+    </div>
+
+    <!-- 10 -->
+    <div class="q">
+      <label class="title" for="q10"><span class="num">10</span>Is there anything else you would like me to know?</label>
+      <textarea id="q10" name="Anything else"></textarea>
+    </div>
+
+    <button type="submit" id="send">Send my answers</button>
+    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+  </form>
+
+  <div class="thanks" id="thanks" role="status" aria-live="polite">
+    <h2>Thank you!</h2>
+    <p>I have your answers. I will be in touch with you soon.</p>
+  </div>
+
+  <footer>Prefer to talk? Just call me and we can fill this in together.</footer>
+</div>
+
+<script>
+  // Where answers are sent. Change this one line to change the email.
+  var SEND_TO = "akiunframed@gmail.com";
+
+  var form = document.getElementById("intake");
+  var btn = document.getElementById("send");
+  var msg = document.getElementById("msg");
+
+  // Typing in a "write here" box ticks its checkbox or radio for them.
+  form.querySelectorAll(".choice .extra input").forEach(function (box) {
+    box.addEventListener("input", function () {
+      var pick = box.closest(".choice").querySelector("input[type=checkbox], input[type=radio]");
+      if (box.value.trim()) pick.checked = true;
+    });
+  });
+
+  function showError(text, focusEl) {
+    msg.className = "msg error";
+    msg.textContent = text;
+    if (focusEl) focusEl.focus();
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (form._honey.value) return;
+
+    var name = form.Name.value.trim();
+    var phone = form.Phone.value.trim();
+    var email = form.email.value.trim();
+    if (!name) return showError("Please write your name in question 1.", form.Name);
+    if (!phone && !email) return showError("Please write a phone number or an email in question 1, so I can reach you.", form.Phone);
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showError("The email in question 1 does not look quite right. Please check it.", form.email);
+
+    // Collect answers; join ticked boxes into one line each.
+    var data = {};
+    new FormData(form).forEach(function (value, key) {
+      if (key === "_honey") return;
+      value = String(value).trim();
+      if (!value) return;
+      data[key] = data[key] ? data[key] + ", " + value : value;
+    });
+    data._subject = "New website client: " + name;
+    data._template = "table";
+
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+    msg.className = "msg";
+    msg.textContent = "";
+
+    fetch("https://formsubmit.co/ajax/" + SEND_TO, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || String(res.j.success) === "false") throw new Error(res.j.message || "failed");
+        form.style.display = "none";
+        document.getElementById("thanks").style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = "Send my answers";
+        showError("Sorry, your answers did not send. Please check your internet and press the button again. If it still does not work, please call me.");
+      });
+  });
+</script>
+</body>
+</html>
