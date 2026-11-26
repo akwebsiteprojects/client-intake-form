@@ -135,7 +135,7 @@
 <div class="wrap">
   <header>
     <h1>A few questions about your website</h1>
-    <p>Thank you for choosing me to build your website. Please answer these 10 short questions.</p>
+    <p>Thank you for choosing me to build your website. Please answer these 11 short questions.</p>
     <p>Short answers are fine. If you are not sure, just write <strong>"Not sure"</strong> and we will talk about it.</p>
   </header>
 
@@ -250,14 +250,26 @@
 
     <!-- 9 -->
     <div class="q">
-      <label class="title" for="q9"><span class="num">9</span>When do you need the website, and about how much would you like to spend?</label>
-      <textarea id="q9" name="Timing and budget"></textarea>
+      <label class="title" for="q9"><span class="num">9</span>When do you need the website?</label>
+      <input type="text" id="q9" name="When needed" placeholder="For example: in 1 month, by March, no rush">
     </div>
 
     <!-- 10 -->
     <div class="q">
-      <label class="title" for="q10"><span class="num">10</span>Is there anything else you would like me to know?</label>
-      <textarea id="q10" name="Anything else"></textarea>
+      <fieldset>
+        <legend><span class="num">10</span>About how much would you like to spend?</legend>
+        <p class="hint">Pick one.</p>
+        <label class="choice"><input type="radio" name="Budget" value="$500 to $1,000"><span>$500 to $1,000</span></label>
+        <label class="choice"><input type="radio" name="Budget" value="$1,000 to $2,000"><span>$1,000 to $2,000</span></label>
+        <label class="choice"><input type="radio" name="Budget" value="$2,000 or more"><span>$2,000 or more</span></label>
+        <label class="choice"><input type="radio" name="Budget" value="Not sure yet"><span>I am not sure yet</span></label>
+      </fieldset>
+    </div>
+
+    <!-- 11 -->
+    <div class="q">
+      <label class="title" for="q11"><span class="num">11</span>Is there anything else you would like me to know?</label>
+      <textarea id="q11" name="Anything else"></textarea>
     </div>
 
     <button type="submit" id="send">Send my answers</button>
